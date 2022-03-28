@@ -1,0 +1,20 @@
+overwrite: true
+schema:
+  - 'wss://exercise-3.hasura.app/v1/graphql':
+      headers:
+        content-type: application/json
+        x-hasura-admin-secret: 'Dri7L9TT1iNb8ptn5ntmkMikwPdq0uBZZme55tDL120hdn16wBXR4403LvcdNSr8'
+documents: src/**/*.graphql
+generates:
+  src/app/@graphql/_generated.ts:
+    plugins:
+      - typescript
+      - typescript-operations
+      - typescript-apollo-angular
+    config:
+      flattenGeneratedTypes: false
+      exportFragmentSpreadSubTypes: true
+      avoidOptionals: true
+      skipTypename: true
+      immutableTypes: true
+      preResolveTypes: true

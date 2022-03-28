@@ -1,0 +1,71 @@
+query GetAllTransactionsQuery {
+  transaction {
+    id
+    transactionFrom
+    transactionTo
+    payment {
+      amount
+      description
+    }
+  }
+}
+
+query GetAllPaymentsQuery {
+  payment {
+    amount
+    completed
+    description
+    id
+    paymentFrom
+    paymentTo
+  }
+}
+
+query GetPaymentIdByAmountAndDescription($amount: Int!, $desc: String!) {
+  payment(where: {amount: {_eq: $amount}, _and: {description: {_eq: $desc}}}) {
+    id
+  }
+}
+
+mutation createNewPaymentMutation($amount: Int!, $description: String!, $paymentFrom: String!, $paymentTo: String!) {
+  insert_payment(objects: {amount: $amount, description: $description, paymentFrom: $paymentFrom, paymentTo: $paymentTo}) {
+    returning {
+      id
+    }
+  }
+}
+
+mutation CreateTransaction($payment_id: Int!, $from: String!, $to: String!) {
+  insert_transaction(objects: {payment_id: $payment_id, transactionFrom: $from, transactionTo: $to}) {
+    affected_rows
+    returning {
+      id
+    }
+  }
+}
+
+mutation UpdatePaymentMutation($id: Int!) {
+  update_payment_by_pk(pk_columns: {id: $id}, _set: {completed: true}) {
+    id
+    completed
+  }
+}
+
+subscription PaymentSubscription {
+  payment {
+    amount
+    description
+    completed
+  }
+}
+
+subscription TransactionSubscription {
+  transaction {
+    transactionFrom
+    transactionTo
+    payment {
+      amount
+      description
+    }
+  }
+}

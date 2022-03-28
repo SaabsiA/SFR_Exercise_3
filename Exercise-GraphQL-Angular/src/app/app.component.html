@@ -1,0 +1,76 @@
+<div class="container">
+
+  <div class="container mt-5">
+    <h1 class="text-primary text-center">Create new Payment</h1>
+    <form (ngSubmit)="createNewPayment()">
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="paymentFrom">Payment From:</label>
+          <input type="text" [(ngModel)]="paymentToCreate.from" id="paymentFrom" name="from" class="form-control" placeholder="Payment By" required>
+        </div>
+        <div class="form-group col-md-6">
+          <label for="paymentTo">Payment To:</label>
+          <input type="text" [(ngModel)]="paymentToCreate.to" id="paymentTo" name="to" class="form-control" placeholder="Paid To" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="paymentAmount">Amount:</label>
+        <input type="number" [(ngModel)]="paymentToCreate.amount" id="paymentAmount" name="amount" class="form-control" placeholder="100" required>
+      </div>
+      <div class="form-group">
+        <label for="description">Description:</label>
+        <input type="text" [(ngModel)]="paymentToCreate.description" id="description" name="description" class="form-control" placeholder="Description" required>
+      </div>
+      <div class="text-center">
+        <button type="submit" class="btn btn-primary btn-lg">Create new Payment</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="container mt-4">
+    <h1 class="text-primary text-center">Overview</h1>
+    <div class="row">
+      <div id="payments" class="col-sm">
+        <h2 class="text-secondary">Payments</h2>
+        <table id="paymentsTable" class="table table-striped">
+          <thead>
+          <tr>
+            <th>Amount</th>
+            <th>Description</th>
+            <th>Completed</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let payment of payments">
+            <td>€ {{payment.amount}}</td>
+            <td>{{payment.description}}</td>
+            <td>{{payment.isCompleted}}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div id="transactions" class="col-sm">
+        <h2 class="text-secondary">Transactions</h2>
+        <table id="transactionTable" class="table table-striped">
+          <thead>
+          <tr>
+            <th>Payment Amount</th>
+            <th>Payment Description</th>
+            <th>From</th>
+            <th>To</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let transaction of transactions">
+            <td>€ {{transaction.payment.amount}}</td>
+            <td>{{transaction.payment.description}}</td>
+            <td>{{transaction.paymentFrom}}</td>
+            <td>{{transaction.paymentTo}}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
