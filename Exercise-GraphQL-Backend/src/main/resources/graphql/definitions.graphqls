@@ -1,0 +1,16 @@
+type Payment {
+    id: Int!
+    amount: Int!
+    description: String!
+    paymentFrom: String!
+    paymentTo: String!
+    completed: Boolean!
+}
+
+type Mutation {
+    createPayment(amount: Int!, description: String!, paymentFrom: String!, paymentTo: String!): Payment
+}
+
+type Query {
+    getPayments: [Payment]
+}
